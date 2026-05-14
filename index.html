@@ -1,0 +1,380 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>АО СЗКД - производственный холдинг</title>
+    <meta
+      name="description"
+      content="АО Северо-Западный Комбинат ДримЛим: активированный уголь, древесный уголь и поставка авиационных деталей."
+    />
+    <meta name="theme-color" content="#050607" />
+    <link rel="canonical" href="https://dkomb.ru/" />
+    <script>
+      if ("scrollRestoration" in history) {
+        history.scrollRestoration = "manual";
+      }
+      scrollTo(0, 0);
+    </script>
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://dkomb.ru/" />
+    <meta property="og:title" content="АО СЗКД - производственный холдинг" />
+    <meta
+      property="og:description"
+      content="С 2011 года производим и поставляем промышленную продукцию: угольные материалы и авиационные детали."
+    />
+    <meta
+      property="og:image"
+      content="https://images.pexels.com/photos/16091505/pexels-photo-16091505.jpeg?auto=compress&cs=tinysrgb&w=1600"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://images.pexels.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="preload"
+      as="image"
+      href="https://images.pexels.com/photos/96622/pexels-photo-96622.jpeg?auto=compress&cs=tinysrgb&w=2200"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script defer src="https://unpkg.com/lucide@1.14.0/dist/umd/lucide.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+    <script defer src="script.js"></script>
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "АО Северо-Западный Комбинат ДримЛим",
+        "alternateName": "АО СЗКД",
+        "url": "https://dkomb.ru/",
+        "telephone": "+7 812 920-21-95",
+        "foundingDate": "2011",
+        "address": {
+          "@type": "PostalAddress",
+          "addressCountry": "RU",
+          "addressRegion": "Ленинградская область",
+          "addressLocality": "Колбеки",
+          "streetAddress": "Борское сельское поселение, Бокситогорский район"
+        }
+      }
+    </script>
+  </head>
+  <body class="is-loading">
+    <a class="skip-link" href="#content">Перейти к содержимому</a>
+
+    <div class="page-loader" id="pageLoader" role="status" aria-live="polite" aria-label="Загрузка сайта">
+      <div class="page-loader__inner">
+        <img class="page-loader__logo" src="assets/logo2.png" alt="АО СЗКД" width="1536" height="1024" />
+        <div class="page-loader__meta">
+          <strong data-page-loader-percent>0%</strong>
+        </div>
+        <div class="page-loader__bar" aria-hidden="true">
+          <span data-page-loader-bar></span>
+        </div>
+      </div>
+    </div>
+
+    <header class="site-header" id="top">
+      <div class="site-header__inner">
+        <a class="brand" href="#hero" aria-label="АО СЗКД, на первый экран">
+          <img class="brand__logo" src="assets/logo2.png" alt="АО СЗКД" width="1536" height="1024" />
+        </a>
+
+        <button class="nav-toggle" type="button" aria-controls="siteNav" aria-expanded="false">
+          <span class="nav-toggle__line"></span>
+          <span class="sr-only">Открыть меню</span>
+        </button>
+
+        <nav class="site-nav" id="siteNav" aria-label="Основная навигация">
+          <a href="#manifest" data-nav-link>Комбинат</a>
+          <a href="#history" data-nav-link>Подход</a>
+          <a href="#directions" data-nav-link>Структура</a>
+          <a href="#contacts" data-nav-link>Заявка</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="content">
+      <section class="hero" id="hero">
+        <div class="hero__stage">
+          <canvas class="hero__sky hero__sequence-canvas" aria-hidden="true" width="1400" height="900"></canvas>
+          <div class="hero__grain" aria-hidden="true"></div>
+          <div class="hero__sequence-loader" aria-hidden="true">0%</div>
+
+          <div class="hero__intro reveal">
+            <p class="hero__lead">
+              <span class="hero__mission-question" data-hero-question>
+                <span class="hero__mission-question-text hero__mission-question-text--current">Наша миссия?</span>
+                <span class="hero__mission-question-text hero__mission-question-text--next">Кто мы?</span>
+              </span>
+              <span class="hero__mission-accent" data-letter-fill>ОТКРЫТЬ РОССИЮ ВОСХИЩЕННЫМИ ГЛАЗАМИ</span>
+              <span class="hero__mission-copy">
+                Мы стремимся поставлять продукцию и услуги высочайшего качества, способствуя развитию
+                технологий и удовлетворяя потребности наших клиентов.
+              </span>
+            </p>
+          </div>
+
+          <div class="hero__side reveal" data-reveal-delay="120">
+            <p>Активация угля</p>
+            <p>Производство угля</p>
+            <p>Авиационные детали</p>
+          </div>
+
+          <div class="split-showcase" aria-label="Производственные направления">
+            <figure class="split-showcase__panel split-showcase__panel--left">
+              <img
+                src="assets/hero-aviation.png"
+                alt="Авиационные детали"
+                width="1536"
+                height="1024"
+              />
+              <figcaption class="split-showcase__caption split-showcase__caption--left">
+                <a href="#directions" class="split-showcase__link">
+                  <span class="split-showcase__index">01</span>
+                  <strong>Авиационные детали</strong>
+                  <small>Поставка комплектующих</small>
+                  <p>Запчасти и инструменты для авиационной отрасли, включая направления Boeing и Airbus.</p>
+                </a>
+              </figcaption>
+            </figure>
+            <figure class="split-showcase__panel split-showcase__panel--right">
+              <img
+                src="assets/hero-carbon.png"
+                alt="Активированный уголь"
+                width="1536"
+                height="1024"
+              />
+              <figcaption class="split-showcase__caption split-showcase__caption--right">
+                <a href="#directions" class="split-showcase__link">
+                  <span class="split-showcase__index">02</span>
+                  <strong>Активированный уголь</strong>
+                  <small>ДАК-5 и БАУ-МФ</small>
+                  <p>
+                    Сырье для производства и обслуживания систем очистки жидких сред:
+                    водоснабжение, пищевая отрасль, нефтепродукты.
+                  </p>
+                </a>
+                <a href="#directions" class="split-showcase__link">
+                  <span class="split-showcase__index">03</span>
+                  <strong>Древесный уголь</strong>
+                  <small>Для промышленных и бытовых нужд</small>
+                  <p>
+                    Дробленый и технический уголь для металлургии и ресторанного бизнеса.
+                    Работаем с березовым сырьем.
+                  </p>
+                </a>
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <section class="manifest section-pad" id="manifest" aria-labelledby="manifestTitle">
+        <div class="section-shell">
+          <div class="section-kicker reveal">
+            <span>Комбинат</span>
+            <span>Кронштадт / Северо-Запад</span>
+          </div>
+
+          <div class="manifest__grid">
+            <h2 class="display-title reveal manifest-title" id="manifestTitle">
+              <span class="manifest-title__main">Производств<span class="manifest-title__red">о</span> <span class="manifest-title__red">и</span> поставк<span class="manifest-title__red">и</span></span>
+              <span class="manifest-title__sub">с промышленной дисциплиной.</span>
+            </h2>
+
+            <div class="manifest__columns">
+              <article class="manifest__item reveal" id="history">
+                <span class="item-index">01</span>
+                <h3>Профиль</h3>
+                <p>
+                  АО «Северо-Западный Комбинат ДримЛим» работает с промышленными направлениями:
+                  активированный уголь, древесный уголь и авиационные комплектующие.
+                </p>
+              </article>
+
+              <article class="manifest__item reveal" data-reveal-delay="100">
+                <span class="item-index">02</span>
+                <h3>Подход</h3>
+                <p>
+                  В работе важны понятная спецификация, срок, документы и аккуратная коммуникация.
+                  Мы переводим заявку в конкретный маршрут поставки без лишнего шума.
+                </p>
+              </article>
+
+              <article class="manifest__item reveal" data-reveal-delay="180">
+                <span class="item-index">03</span>
+                <h3>Задачи</h3>
+                <p>
+                  Подбираем угольные материалы под очистку жидких сред, промышленные процессы,
+                  металлургию, ресторанный сегмент и запросы авиационной отрасли.
+                </p>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="media-band" aria-label="Демо-фотографии производства и авиации">
+        <div class="media-band__image media-band__image--coal" aria-hidden="true"></div>
+        <div class="media-band__image media-band__image--aviation" aria-hidden="true"></div>
+        <div class="media-band__text media-band__text--left reveal">
+          <span>Угольные материалы</span>
+          <h2>Чистые среды начинаются с сырья</h2>
+          <p>ДАК-5, БАУ-МФ и древесный уголь для технологических процессов и фильтрации.</p>
+        </div>
+        <div class="media-band__text media-band__text--right reveal" data-reveal-delay="120">
+          <span>Авиационные поставки</span>
+          <h2>Точная деталь. Спокойная поставка</h2>
+          <p>Комплектующие и инструмент для отрасли, где важны срок, проверка и ответственность.</p>
+        </div>
+      </section>
+
+      <section class="directions section-pad" id="directions" aria-labelledby="directionsTitle">
+        <div class="section-shell">
+          <div class="section-kicker section-kicker--dark reveal">
+            <span>Структура</span>
+            <span>Три направления</span>
+          </div>
+
+          <h2 class="display-title display-title--light reveal directions-title" id="directionsTitle">
+            <span class="directions-title__red">У</span>гольные
+            <span class="directions-title__red">м</span>атериалы
+            <span class="directions-title__red">и</span>
+            <span class="directions-title__red">а</span>виационные
+            <span class="directions-title__red">п</span>оставки
+            <span class="directions-title__red">в</span>
+            <span class="directions-title__red">о</span>дной
+            <span class="directions-title__red">с</span>истеме.
+          </h2>
+
+          <div class="directions__list">
+            <article class="direction reveal">
+              <span class="direction__number">01</span>
+              <div class="direction__main">
+                <h3>Активация угля</h3>
+                <p class="direction__subtitle">ДАК-5 и БАУ-МФ</p>
+              </div>
+              <p class="direction__copy">
+                Сырье для производства и обслуживания систем очистки жидких сред: сточные воды,
+                промышленные стоки, водоснабжение, пищевая отрасль и нефтепродукты.
+              </p>
+              <i data-lucide="arrow-up-right" aria-hidden="true"></i>
+            </article>
+
+            <article class="direction reveal">
+              <span class="direction__number">02</span>
+              <div class="direction__main">
+                <h3>Производство угля</h3>
+                <p class="direction__subtitle">Фракции и березовое сырье</p>
+              </div>
+              <p class="direction__copy">
+                Древесный уголь разных фракций, технический уголь для металлургии,
+                специализированный уголь для ресторанного бизнеса, дробленый уголь и угольная пыль.
+              </p>
+              <i data-lucide="arrow-up-right" aria-hidden="true"></i>
+            </article>
+
+            <article class="direction reveal">
+              <span class="direction__number">03</span>
+              <div class="direction__main">
+                <h3>Авиационные детали</h3>
+                <p class="direction__subtitle">Комплектующие, запчасти, инструмент</p>
+              </div>
+              <p class="direction__copy">
+                Поставка комплектующих для авиационной отрасли, включая позиции для парков Boeing и
+                Airbus. Работаем от точной заявки и сопровождаем подбор до отгрузки.
+              </p>
+              <i data-lucide="arrow-up-right" aria-hidden="true"></i>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="contacts section-pad" id="contacts" aria-labelledby="contactsTitle">
+        <div class="section-shell contacts__grid">
+          <div class="contacts__info reveal">
+            <p class="eyebrow">Заявка</p>
+            <h2 class="display-title" id="contactsTitle">Опишите задачу — вернемся с рабочим вариантом.</h2>
+            <p class="contacts__lead">
+              Укажите направление, марку угля, фракцию, объем, номер детали или желаемый срок
+              поставки. Чем точнее исходные данные, тем быстрее можно подготовить ответ.
+            </p>
+
+            <address class="contact-list">
+              <a href="tel:+78129202195">
+                <i data-lucide="phone" aria-hidden="true"></i>
+                <span>8 812 920 21 95</span>
+              </a>
+              <a href="mailto:ids@drmhhh.com">
+                <i data-lucide="mail" aria-hidden="true"></i>
+                <span>ids@drmhhh.com</span>
+              </a>
+              <p>
+                <i data-lucide="map-pin" aria-hidden="true"></i>
+                <span>
+                  Центральный офис: 197760, Санкт-Петербург, г. Кронштадт, Тулонская аллея, д. 12
+                </span>
+              </p>
+              <p>
+                <i data-lucide="factory" aria-hidden="true"></i>
+                <span>
+                  Производственная площадка: 187650, г. Колбеки, Борское сельское поселение,
+                  Бокситогорский район, Ленинградская область
+                </span>
+              </p>
+              <p>
+                <i data-lucide="wrench" aria-hidden="true"></i>
+                <span>База обслуживания техники: 187021, ЛО, Аннолово, ул. Павузи, д. 1</span>
+              </p>
+            </address>
+          </div>
+
+          <form class="contact-form reveal" id="requestForm" novalidate>
+            <div class="contact-form__intro">
+              <span>Запрос в работу</span>
+              <p>Оставьте контакты и краткое описание потребности. Форма сейчас работает в демо-режиме.</p>
+            </div>
+            <div class="form-row">
+              <label for="name">Контактное лицо</label>
+              <input id="name" name="name" type="text" autocomplete="name" required />
+            </div>
+            <div class="form-row">
+              <label for="contact">Телефон или email</label>
+              <input id="contact" name="contact" type="text" autocomplete="email" required />
+            </div>
+            <div class="form-row">
+              <label for="message">Что нужно поставить</label>
+              <textarea
+                id="message"
+                name="message"
+                rows="4"
+                placeholder="Направление, марка, фракция, объем, номер детали или срок поставки"
+              ></textarea>
+            </div>
+            <button class="submit-button" type="submit">
+              <span>Отправить запрос</span>
+              <i data-lucide="send" aria-hidden="true"></i>
+            </button>
+            <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="section-shell site-footer__inner">
+        <p>АО «СЗКД» / Северо-Западный Комбинат ДримЛим</p>
+        <a href="#contacts">Оставить заявку</a>
+      </div>
+    </footer>
+  </body>
+</html>
