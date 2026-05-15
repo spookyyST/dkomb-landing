@@ -29,6 +29,8 @@ let sequenceCurrentFrame = -1;
 let sequenceRenderRequest = 0;
 let sequenceContext;
 const sequenceFrameCount = 180;
+const sequenceInitialPreloadCount = 40;
+const sequencePreloadWorkerCount = 5;
 const sequenceImages = [];
 const sequenceFramePromises = [];
 const sequencePlayhead = { frame: 0 };
@@ -216,7 +218,13 @@ function drawSequenceFrame(frame) {
   if (frameIndex === sequenceCurrentFrame) return;
 
   const image = sequenceImages[frameIndex];
-  if (!image?.complete) return;
+  if (!image?.complete) {
+    loadSequenceFrame(frameIndex).then(() => {
+      sequenceCurrentFrame = -1;
+      renderSequenceFrame();
+    });
+    return;
+  }
 
   sequenceContext.clearRect(0, 0, sequenceCanvas.width, sequenceCanvas.height);
   drawSequenceImage(image);
@@ -283,19 +291,23 @@ function loadSequenceFrame(index) {
   return sequenceFramePromises[index];
 }
 
-function preloadSequenceFramesInBackground() {
-  let nextFrameIndex = 0;
-  const workerCount = 5;
+function preloadSequenceFrameRange(startIndex, endIndex, onFrameLoaded) {
+  let nextFrameIndex = startIndex;
 
   const loadNextFrame = async () => {
-    if (nextFrameIndex >= sequenceFrameCount) return;
+    if (nextFrameIndex >= endIndex) return;
     const frameIndex = nextFrameIndex;
     nextFrameIndex += 1;
     await loadSequenceFrame(frameIndex);
+    onFrameLoaded?.(frameIndex);
     await loadNextFrame();
   };
 
-  Promise.all(Array.from({ length: workerCount }, loadNextFrame)).then(() => {
+  return Promise.all(Array.from({ length: sequencePreloadWorkerCount }, loadNextFrame));
+}
+
+function preloadSequenceFramesInBackground() {
+  preloadSequenceFrameRange(sequenceInitialPreloadCount, sequenceFrameCount).then(() => {
     setLoadingProgress(100);
     sequenceLoader?.classList.add("is-hidden");
   });
@@ -359,8 +371,14 @@ async function initHeroSequence() {
   sequenceContext = sequenceCanvas.getContext("2d");
   resizeSequenceCanvas();
 
-  updateSequenceLoadingProgress();
-  await loadSequenceFrame(0);
+  let startupLoadedCount = 0;
+  setLoadingProgress(0);
+  await preloadSequenceFrameRange(0, sequenceInitialPreloadCount, () => {
+    startupLoadedCount += 1;
+    setLoadingProgress((startupLoadedCount / sequenceInitialPreloadCount) * 100);
+  });
+  setLoadingProgress(100);
+  sequenceLoader?.classList.add("is-hidden");
 
   drawSequenceFrame(0);
   updateLetterFill(0);
