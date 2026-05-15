@@ -30,7 +30,9 @@ let sequenceRenderRequest = 0;
 let sequenceContext;
 const sequenceFrameCount = 180;
 const sequenceImages = [];
+const sequenceFramePromises = [];
 const sequencePlayhead = { frame: 0 };
+let sequenceLoadedCount = 0;
 
 if ("scrollRestoration" in window.history) {
   window.history.scrollRestoration = "manual";
@@ -240,55 +242,63 @@ function resizeSequenceCanvas() {
   drawSequenceFrame(sequencePlayhead.frame);
 }
 
-function preloadSequenceFrames() {
-  let loadedCount = 0;
+function updateSequenceLoadingProgress() {
+  setLoadingProgress((sequenceLoadedCount / sequenceFrameCount) * 100);
+}
 
-  const updateLoader = () => {
-    setLoadingProgress((loadedCount / sequenceFrameCount) * 100);
+function loadSequenceFrame(index) {
+  if (sequenceFramePromises[index]) return sequenceFramePromises[index];
+
+  const image = new Image();
+  image.decoding = "async";
+  sequenceImages[index] = image;
+
+  sequenceFramePromises[index] = new Promise((resolve) => {
+    const finishImageLoad = async () => {
+      try {
+        await image.decode?.();
+      } catch {
+        // Some browsers reject decode for cached or partially decoded images; the loaded image can still be drawn.
+      }
+
+      sequenceLoadedCount += 1;
+      updateSequenceLoadingProgress();
+      resolve(image);
+    };
+
+    image.addEventListener("load", finishImageLoad, { once: true });
+
+    image.addEventListener(
+      "error",
+      () => {
+        sequenceLoadedCount += 1;
+        updateSequenceLoadingProgress();
+        resolve(image);
+      },
+      { once: true },
+    );
+  });
+
+  image.src = getSequenceFramePath(index);
+  return sequenceFramePromises[index];
+}
+
+function preloadSequenceFramesInBackground() {
+  let nextFrameIndex = 0;
+  const workerCount = 5;
+
+  const loadNextFrame = async () => {
+    if (nextFrameIndex >= sequenceFrameCount) return;
+    const frameIndex = nextFrameIndex;
+    nextFrameIndex += 1;
+    await loadSequenceFrame(frameIndex);
+    await loadNextFrame();
   };
 
-  const finishImageLoad = async (image, resolve) => {
-    try {
-      await image.decode?.();
-    } catch {
-      // Some browsers reject decode for cached or partially decoded images; the loaded image can still be drawn.
-    }
-
-    loadedCount += 1;
-    updateLoader();
-    resolve(image);
-  };
-
-  updateLoader();
-
-  return Promise.all(
-    Array.from({ length: sequenceFrameCount }, (_, index) => {
-      const image = new Image();
-      image.decoding = "async";
-      image.src = getSequenceFramePath(index);
-      sequenceImages[index] = image;
-
-      return new Promise((resolve) => {
-        image.addEventListener(
-          "load",
-          () => {
-            finishImageLoad(image, resolve);
-          },
-          { once: true },
-        );
-
-        image.addEventListener(
-          "error",
-          () => {
-            loadedCount += 1;
-            updateLoader();
-            resolve(image);
-          },
-          { once: true },
-        );
-      });
-    }),
-  );
+  Promise.all(Array.from({ length: workerCount }, loadNextFrame)).then(() => {
+    setLoadingProgress(100);
+    sequenceLoader?.classList.add("is-hidden");
+  });
 }
 
 function initSequenceScrollTrigger() {
@@ -349,16 +359,16 @@ async function initHeroSequence() {
   sequenceContext = sequenceCanvas.getContext("2d");
   resizeSequenceCanvas();
 
-  await preloadSequenceFrames();
+  updateSequenceLoadingProgress();
+  await loadSequenceFrame(0);
 
-  setLoadingProgress(100);
-  sequenceLoader?.classList.add("is-hidden");
   drawSequenceFrame(0);
   updateLetterFill(0);
   initSequenceScrollTrigger();
   resetInitialScrollPosition();
   window.ScrollTrigger?.refresh();
   window.setTimeout(hidePageLoader, 260);
+  window.setTimeout(preloadSequenceFramesInBackground, 320);
 
   window.addEventListener("resize", () => {
     resizeSequenceCanvas();
