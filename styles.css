@@ -889,11 +889,16 @@ textarea {
 
 .direction {
   display: grid;
-  grid-template-columns: 70px minmax(260px, 0.72fr) minmax(260px, 0.78fr) 34px;
+  grid-template-columns: 70px minmax(0, 0.98fr) minmax(340px, 0.72fr) 34px;
   align-items: start;
-  gap: clamp(18px, 4vw, 60px);
+  gap: clamp(22px, 3.2vw, 52px);
   padding: clamp(28px, 4.4vw, 58px) 0;
   border-bottom: 1px solid var(--line-light);
+}
+
+.direction__main,
+.direction__copy {
+  min-width: 0;
 }
 
 .direction__number {
@@ -903,10 +908,11 @@ textarea {
 .direction h3 {
   margin: 0;
   font-family: var(--display);
-  font-size: clamp(2.2rem, 4.4vw, 5.8rem);
+  font-size: clamp(2.2rem, 3.75vw, 5.1rem);
   font-weight: 700;
   line-height: 0.88;
   text-transform: uppercase;
+  text-wrap: balance;
 }
 
 .direction__subtitle {
